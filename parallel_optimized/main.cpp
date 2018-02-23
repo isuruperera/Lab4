@@ -20,10 +20,12 @@ double calculateMean(double data[],int samples);
 int main()
 {
     std::cout << "================******=================="<<std::endl;
+    std::cout << std::endl;
     std::cout << "CS4532: Concurrent Programming "<<std::endl;
     std::cout << "Lab 3 "<<std::endl;
     std::cout << "P.D.I.T.S.K. Perera \t 140462E "<<std::endl;
     std::cout << "M.D.S.K. Ranasinghe \t 140499X "<<std::endl;
+    std::cout << std::endl;
     std::cout << "================******=================="<<std::endl;
 
     for(int k = 200;k<=2000;k+=200)

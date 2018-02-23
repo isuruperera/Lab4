@@ -79,14 +79,27 @@ void multiplyMatrices(double** matrix_one, double** matrix_two, double** result_
     {
         for(int j = 0; j < N; j++)
         {
-            //OPTIMIZATION
-            //Sum is first calculated into a local variable and then populated into
+            //OPTIMIZATIONS
+            //1. Sum is first calculated into a local variable and then populated into
             //the result matrix for reducing memory access operations and increase
             //cache hits
+            //
+            //2. Explicit loop unfolding is used for reducing the number of iterations
+            //required in the innermost loop, and take advantage of the adjacent cache blocks
+            //(spatial locality)
             double sum = 0.0;
-            for(int k=0; k<N; k++)
+            for(int k=0; k<N/10; k+=10)
             {
                 sum += matrix_one[i][k] * matrix_two[k][j];
+                sum += matrix_one[i][k+1] * matrix_two[k+1][j];
+                sum += matrix_one[i][k+2] * matrix_two[k+2][j];
+                sum += matrix_one[i][k+3] * matrix_two[k+3][j];
+                sum += matrix_one[i][k+4] * matrix_two[k+4][j];
+                sum += matrix_one[i][k+5] * matrix_two[k+5][j];
+                sum += matrix_one[i][k+6] * matrix_two[k+6][j];
+                sum += matrix_one[i][k+7] * matrix_two[k+7][j];
+                sum += matrix_one[i][k+8] * matrix_two[k+8][j];
+                sum += matrix_one[i][k+9] * matrix_two[k+9][j];
             }
             result_matrix[i][j] = sum;
         }
